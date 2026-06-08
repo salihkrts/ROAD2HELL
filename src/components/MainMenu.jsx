@@ -71,9 +71,10 @@ function MainMenu({ onStartGame, onResumeGame, onOpenSettings, onOpenCollection,
       {/* BOTTOM BUTTONS ROW */}
       <div className="menu-footer-actions">
         <button className="menu-button-rect cyber-glitch-hover" onClick={onStartGame} onMouseEnter={onHover}>{t('start_game')}</button>
-          <button className={`menu-button-rect cyber-glitch-hover ${!hasSaveGame ? 'disabled' : ''}`} onClick={hasSaveGame ? onResumeGame : null} onMouseEnter={onHover}>{t('continue')}</button>
-          <button className="menu-button-rect cyber-glitch-hover" onClick={onOpenSettings} onMouseEnter={onHover}>{t('settings')}</button>
-          <button className="menu-button-rect cyber-glitch-hover" onClick={onOpenCollection} onMouseEnter={onHover}>{t('collection')}</button>
+        <button className={`menu-button-rect cyber-glitch-hover ${!hasSaveGame ? 'disabled' : ''}`} onClick={hasSaveGame ? onResumeGame : null} onMouseEnter={onHover}>{t('continue')}</button>
+        <button className="menu-button-rect cyber-glitch-hover" onClick={onOpenSettings} onMouseEnter={onHover}>{t('settings')}</button>
+        <button className="menu-button-rect cyber-glitch-hover" onClick={onOpenCollection} onMouseEnter={onHover}>{t('collection')}</button>
+        <button className="menu-button-rect cyber-glitch-hover" onClick={() => window.open(getImagePath('/poster.html'), '_blank')} onMouseEnter={onHover}>{t('poster')}</button>
       </div>
     </div>
   );

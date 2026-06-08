@@ -54,7 +54,6 @@ const DEFAULT_SETTINGS = {
   enemyAlerts: true,     
   
   // Accessibility
-  fontSize: 'standard',  
   dyslexiaFont: false,   
   highContrast: false,   
   colorblindMode: 'none',

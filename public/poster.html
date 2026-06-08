@@ -2,278 +2,873 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-width=1.0">
-  <title>ORBITAL NADIR - Sunum Posteri</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Road to Hell — Sektör 7 | Resmi Tanıtım Posteri</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary-neon: #00ff41;
-      --danger-neon: #ff003c;
-      --bg-dark: #050505;
-      --text-gray: #a0aab5;
+      --green: #00ff55;
+      --green-dim: #00cc44;
+      --green-glow: rgba(0, 255, 85, 0.3);
+      --red: #ff2222;
+      --red-glow: rgba(255, 34, 34, 0.4);
+      --gold: #ffcc44;
+      --gold-glow: rgba(255, 204, 68, 0.3);
+      --bg: #060a08;
+      --bg-card: rgba(10, 20, 15, 0.85);
+      --text: #d4ffd4;
+      --text-dim: #7da885;
+      --border: rgba(0, 255, 85, 0.25);
+    }
+
+    body.theme-amber {
+      --green: #ffb700;
+      --green-dim: #cca300;
+      --green-glow: rgba(255, 183, 0, 0.3);
+      --text: #ffeebd;
+      --text-dim: #a8937d;
+      --border: rgba(255, 183, 0, 0.25);
+    }
+
+    body.theme-amber .bg-grid {
+      background-image: 
+        linear-gradient(rgba(255, 183, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 183, 0, 0.03) 1px, transparent 1px);
+    }
+
+    body.theme-amber .visual-scanlines {
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255, 183, 0, 0.06) 3px, rgba(255, 183, 0, 0.06) 6px);
+    }
+
+    body.theme-amber .logo-main {
+      background: linear-gradient(135deg, #ffffff 0%, #ffdd88 50%, var(--green) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    body.no-scanlines::before {
+      display: none;
+    }
+    body.no-scanlines .visual-scanlines {
+      display: none;
+    }
+
+    /* ── KONTROL PANELİ ── */
+    .control-panel {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10, 20, 15, 0.9);
+      border: 1px solid var(--green);
+      backdrop-filter: blur(10px);
+      padding: 8px 16px;
+      border-radius: 30px;
+      display: flex;
+      gap: 12px;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 15px var(--green-glow);
+      transition: all 0.3s ease;
     }
     
-    * {
+    .control-panel button {
+      background: rgba(0, 255, 85, 0.08);
+      border: 1px solid var(--green);
+      color: var(--text);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    
+    .control-panel button:hover {
+      background: var(--green);
+      color: #060a08;
+      box-shadow: 0 0 10px var(--green);
+      transform: translateY(-1px);
+    }
+
+    .control-panel button:active {
+      transform: translateY(1px);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
-      background-color: var(--bg-dark);
-      color: var(--primary-neon);
-      font-family: 'Share Tech Mono', monospace;
-      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      background-image: 
-        linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.95)),
-        url('/src/assets/background_visual_check_1774664813480.webp');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
+      padding: 40px 20px;
+      overflow-x: hidden;
+      position: relative;
     }
 
-    /* Scanlines effect */
+    /* ── SCANLINE VE PARLAMA DETAYLARI ── */
     body::before {
-      content: " ";
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(18, 16, 16, 0) 50%,
-        rgba(0, 0, 0, 0.25) 50%
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px
       );
-      background-size: 100% 4px;
-      z-index: 2;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* Ambient background grid */
+    .bg-grid {
+      position: fixed; inset: 0;
+      background-image: 
+        linear-gradient(rgba(0, 255, 85, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 85, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── POSTER ANA ALAN ── */
+    .poster {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1100px;
+      /* Standart A-Serisi Afiş Oranı */
+      aspect-ratio: 1 / 1.414;
+      background: rgba(4, 8, 6, 0.95);
+      border: 3px double var(--green);
+      box-shadow: 
+        0 0 40px rgba(0, 255, 85, 0.1),
+        inset 0 0 60px rgba(0, 0, 0, 0.9);
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    /* Glitch ve Köşe Efektleri */
+    .poster-corner {
+      position: absolute;
+      width: 20px; height: 20px;
+      border: 3px solid var(--green);
       pointer-events: none;
     }
+    .top-left { top: 15px; left: 15px; border-right: none; border-bottom: none; }
+    .top-right { top: 15px; right: 15px; border-left: none; border-bottom: none; }
+    .bottom-left { bottom: 15px; left: 15px; border-right: none; border-top: none; }
+    .bottom-right { bottom: 15px; right: 15px; border-left: none; border-top: none; }
 
-    .poster-container {
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 25px;
+    }
+
+    .system-status {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 1.5s infinite alternate;
+    }
+    @keyframes pulse {
+      from { opacity: 0.4; } to { opacity: 1; }
+    }
+
+    .doc-no {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      color: var(--red);
+      border: 1px solid var(--red);
+      padding: 2px 8px;
+      letter-spacing: 0.1em;
+      background: rgba(255, 34, 34, 0.05);
+    }
+
+    /* ── LOGO ALANI ── */
+    .logo-container {
+      text-align: center;
+      margin-bottom: 30px;
       position: relative;
-      width: 100%;
-      max-width: 1200px;
-      margin: 40px;
-      padding: 60px;
-      background: rgba(10, 15, 12, 0.7);
-      border: 2px solid rgba(0, 255, 65, 0.3);
-      box-shadow: 0 0 50px rgba(0, 255, 65, 0.1),
-                  inset 0 0 30px rgba(0, 255, 65, 0.05);
-      z-index: 3;
-      backdrop-filter: blur(10px);
+    }
+
+    .logo-main {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 64px;
+      font-weight: 900;
+      letter-spacing: 6px;
+      line-height: 1;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff 0%, #88ffaa 50%, var(--green) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 15px var(--green-glow));
+      animation: titleGlitch 4s infinite;
+    }
+
+    .logo-sub {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.45em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-top: 8px;
+      text-shadow: 0 0 8px var(--red-glow);
+    }
+
+    /* ── GRID YAPISI ── */
+    .content-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      border-radius: 10px;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 35px;
+      flex-grow: 1;
     }
 
-    /* Glitch borders */
-    .poster-container::after {
-      content: '';
-      position: absolute;
-      top: -2px; left: -2px; right: -2px; bottom: -2px;
-      border: 2px solid var(--primary-neon);
-      z-index: -1;
-      animation: borderFlicker 4s infinite;
-      border-radius: 10px;
-    }
-
-    .poster-left {
+    .col-left {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      gap: 24px;
     }
 
-    .game-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 5rem;
-      font-weight: 900;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      line-height: 1;
-      margin-bottom: 10px;
-      color: #fff;
-      text-shadow: 0 0 10px var(--primary-neon),
-                   0 0 20px var(--primary-neon),
-                   0 0 40px var(--primary-neon);
-      animation: textGlitch 3s infinite;
-    }
-
-    .tagline {
-      font-size: 1.5rem;
-      color: #fff;
-      margin-bottom: 30px;
-      font-style: italic;
-      text-shadow: 0 0 5px var(--primary-neon);
-    }
-
-    .genre-badge {
-      display: inline-block;
-      padding: 10px 20px;
-      border: 1px solid var(--primary-neon);
-      background: rgba(0, 255, 65, 0.1);
-      font-size: 1.2rem;
-      font-weight: bold;
-      letter-spacing: 2px;
-      margin-bottom: 40px;
-      text-transform: uppercase;
-      box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
-    }
-
-    .synopsis {
-      font-size: 1.25rem;
-      line-height: 1.6;
-      color: var(--text-gray);
-      margin-bottom: 40px;
-      border-left: 4px solid var(--primary-neon);
-      padding-left: 20px;
-    }
-
-    .features-list {
-      list-style: none;
-    }
-
-    .features-list li {
-      font-size: 1.15rem;
-      color: #fff;
-      margin-bottom: 15px;
+    .col-right {
       display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* ── KART VE KUTU STİLLERİ ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      position: relative;
+      border-radius: 2px;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 15px; width: 30px; height: 3px;
+      background: var(--green);
+    }
+
+    .card-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--green);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title::before {
+      content: '■';
+      font-size: 11px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      padding: 6px 14px;
+      border: 1px solid var(--green);
+      background: rgba(0, 255, 85, 0.07);
+      color: var(--green);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: bold;
+      width: fit-content;
+      margin-bottom: 12px;
+    }
+
+    /* ── LORE ── */
+    .lore-text {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .lore-highlight {
+      border-left: 2px solid var(--red);
+      padding-left: 14px;
+      margin-top: 10px;
+      font-style: italic;
+      color: #ff9999;
+    }
+
+    /* ── MEKANİKLER (NASIL OYNANIR) ── */
+    .mechanics-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .mechanic-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .mechanic-num {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--green);
+      font-weight: bold;
+      border: 1px solid var(--green);
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 12px;
+      background: rgba(0, 255, 85, 0.05);
+    }
+    .mechanic-item strong {
+      color: #fff;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* ── VISUAL ART BOX ── */
+    .visual-box {
+      border: 1px solid var(--border);
+      position: relative;
+      height: 250px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    }
+    .visual-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.15) contrast(1.1) brightness(0.85);
+    }
+    .visual-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(0deg, rgba(6,10,8,0.95) 0%, transparent 40%);
+      pointer-events: none;
+    }
+    .visual-scanlines {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,255,85,0.06) 3px, rgba(0,255,85,0.06) 6px);
+      pointer-events: none;
+    }
+    .visual-label {
+      position: absolute;
+      bottom: 12px; left: 16px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--green);
+      text-transform: uppercase;
+      background: rgba(0,0,0,0.85);
+      padding: 4px 10px;
+      border: 1px solid var(--green);
+    }
+
+    /* ── KARAKTER DOSYALARI ── */
+    .chars-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .char-mini-card {
+      border: 1px solid rgba(0, 255, 85, 0.15);
+      background: rgba(0,0,0,0.3);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .char-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(0,255,85,0.1);
+      padding-bottom: 4px;
+    }
+    .char-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .char-class {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--red);
+      letter-spacing: 0.05em;
+    }
+    .char-desc {
+      font-size: 12px;
+      line-height: 1.4;
+      color: var(--text-dim);
+    }
+
+    /* ── TEKNİK ÖZELLİKLER VE DİL ── */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      text-align: center;
+    }
+    .spec-item {
+      border: 1px solid rgba(0,255,85,0.12);
+      background: rgba(0,0,0,0.2);
+      padding: 10px 6px;
+    }
+    .spec-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .spec-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--green);
+      margin-top: 4px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      margin-top: 25px;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
     }
 
-    .features-list li::before {
-      content: '>';
-      color: var(--primary-neon);
-      margin-right: 15px;
-      font-weight: bold;
-      text-shadow: 0 0 5px var(--primary-neon);
+    .footer-left {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    .footer-left span {
+      color: var(--green);
     }
 
-    .poster-right {
-      position: relative;
+    .footer-right {
       display: flex;
-      flex-direction: column;
+      align-items: center;
       gap: 20px;
     }
 
-    .character-showcase {
+    .qr-mock {
+      width: 60px;
+      height: 60px;
+      border: 1px solid var(--green);
+      padding: 4px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 10px var(--green-glow);
+    }
+    .qr-mock svg {
       width: 100%;
-      height: 250px;
-      background-size: cover;
-      background-position: center;
-      border: 1px solid var(--primary-neon);
-      position: relative;
-      filter: grayscale(80%) contrast(120%);
-      transition: filter 0.3s ease;
+      height: 100%;
     }
 
-    .character-showcase:hover {
-      filter: grayscale(0%) contrast(100%);
+    .cta-text {
+      text-align: right;
+    }
+    .cta-link {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      text-shadow: 0 0 8px var(--green-glow);
+      border: 1px solid var(--green);
+      padding: 6px 14px;
+      background: rgba(0, 255, 85, 0.05);
+      transition: all 0.2s;
+    }
+    .cta-link:hover {
+      background: var(--green);
+      color: #000;
+      box-shadow: 0 0 15px var(--green);
     }
 
-    .char-1 { background-image: url('/faces/d8_aras.png'); }
-    .char-2 { background-image: url('/faces/scout_vera.png'); }
-
-    .character-label {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      background: rgba(0,0,0,0.8);
-      padding: 5px 10px;
-      border: 1px solid var(--primary-neon);
-      font-size: 0.9rem;
+    /* ── ANIMATIONS ── */
+    @keyframes titleGlitch {
+      0%, 95%, 100% {
+        transform: none;
+        filter: drop-shadow(0 0 15px var(--green-glow));
+      }
+      96% {
+        transform: skewX(-3deg) scaleY(0.98);
+        filter: drop-shadow(-3px 0 0 var(--red)) drop-shadow(3px 0 0 var(--green));
+      }
+      97% {
+        transform: skewX(3deg) scaleY(1.02);
+        filter: drop-shadow(3px 0 0 var(--red)) drop-shadow(-3px 0 0 var(--green));
+      }
+      98% {
+        transform: none;
+      }
     }
 
-    .bottom-info {
-      position: absolute;
-      bottom: -40px;
-      right: 0;
-      font-size: 0.9rem;
-      color: var(--text-gray);
-      letter-spacing: 1px;
+    /* ── YAZDIRMA (PRINT) MEDYA KURALLARI ── */
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+        padding: 0;
+      }
+      body::before, .bg-grid {
+        display: none;
+      }
+      .poster {
+        border: 2px solid #000;
+        box-shadow: none;
+        background: #fff;
+        color: #000;
+        aspect-ratio: auto;
+        padding: 20px;
+        width: 100%;
+        max-width: 100%;
+      }
+      .logo-main {
+        background: none;
+        -webkit-text-fill-color: initial;
+        color: #000;
+        filter: none;
+      }
+      .logo-sub {
+        color: #555;
+        text-shadow: none;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid #000;
+        color: #000;
+      }
+      .card::before {
+        background: #000;
+      }
+      .card-title, .badge, .spec-value, .mechanic-num, .cta-link {
+        color: #000 !important;
+        border-color: #000 !important;
+        background: none !important;
+        text-shadow: none !important;
+      }
+      .visual-box {
+        border-color: #000;
+      }
+      .visual-box img {
+        filter: grayscale(100%);
+      }
+      .visual-scanlines, .visual-overlay {
+        display: none;
+      }
+      .visual-label {
+        border-color: #000;
+        color: #000;
+        background: #fff;
+      }
+      .char-mini-card {
+        border-color: #555;
+        background: none;
+      }
+      .char-name {
+        color: #000;
+      }
+      .spec-item {
+        border-color: #aaa;
+        background: none;
+      }
+      .footer-left span, .cta-link {
+        color: #000 !important;
+      }
+      .qr-mock {
+        border-color: #000;
+        box-shadow: none;
+      }
     }
 
-    /* Animations */
-    @keyframes textGlitch {
-      0%, 100% { text-shadow: 0 0 10px var(--primary-neon); }
-      92% { text-shadow: 0 0 10px var(--primary-neon); }
-      93% { text-shadow: 3px 0 0 var(--danger-neon), -3px 0 0 #0ff; transform: translate(2px, 0); }
-      95% { text-shadow: -3px 0 0 var(--danger-neon), 3px 0 0 #0ff; transform: translate(-2px, 0); }
-      97% { text-shadow: 0 0 10px var(--primary-neon); transform: translate(0, 0); }
-    }
-
-    @keyframes borderFlicker {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
-      51% { opacity: 1; }
-      52% { opacity: 0.2; }
-      53% { opacity: 1; }
-    }
-
-    /* Responsive */
+    /* Responsive scaling for smaller screens */
     @media (max-width: 900px) {
-      .poster-container {
+      .poster {
+        aspect-ratio: auto;
+        padding: 24px;
+      }
+      .content-grid {
         grid-template-columns: 1fr;
-        padding: 30px;
+        gap: 20px;
       }
-      .game-title {
-        font-size: 3.5rem;
-      }
-      .character-showcase {
-        height: 150px;
+      .logo-main {
+        font-size: 44px;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="poster-container">
-    <!-- Sol Taraf: Metin ve Oyun Bilgisi -->
-    <div class="poster-left">
-      <h1 class="game-title">ORBITAL NADIR</h1>
-      <p class="tagline">"Işık hiç bu kadar şeffaf olmamıştı..."</p>
-      
-      <div class="genre-badge">
-        METİN TABANLI (TEXT-BASED) HAYATTA KALMA RPG
-      </div>
-
-      <div class="synopsis">
-        Dünya nükleer bir felaketin ardından "Gümüş Sis" adlı radyoaktif, zihin bükücü bir dalga tarafından yutuldu. Sektör-7, insanlığın son güvenli kalesi. Sen, bu kalenin sınır kapısındaki Bekçisin. Görevin basit ama acımasız: Kimin içeri gireceğine ve kimin sise terk edileceğine karar vermek.
-      </div>
-
-      <ul class="features-list">
-        <li><strong>AHLAKİ KARARLAR:</strong> Kapına gelen siviller, tarikatçılar ve askerler arasında seçim yap. Merhamet mi edeceksin, yoksa güvenliği mi seçeceksin?</li>
-        <li><strong>DİNAMİK DENGE:</strong> Sektörün Moral ve Güvenlik seviyelerini dengede tut. Biri sıfırlanırsa sistem çöker.</li>
-        <li><strong>ZENGİN HİKAYE:</strong> 14 zorlu gün boyunca "Vera'nın Ordusu" ve "Gümüş Çocuk" efsanesinin gizemini çöz.</li>
-        <li><strong>6 FARKLI EPİK SON:</strong> Yaptığın seçimler sadece kimin öleceğini değil, dünyanın nasıl sona ereceğini de belirleyecek.</li>
-      </ul>
-    </div>
-
-    <!-- Sağ Taraf: Görseller ve Karakterler -->
-    <div class="poster-right">
-      <div class="character-showcase char-1">
-        <div class="character-label">ARAS [Yapay Zeka Müttefik]</div>
-      </div>
-      <div class="character-showcase char-2">
-        <div class="character-label">VERA [Sisin Elçisi]</div>
-      </div>
-      
-      <div style="margin-top: auto; padding: 20px; border: 1px solid var(--primary-neon); background: rgba(0,255,65,0.05); text-align: center;">
-        <h3 style="margin-bottom: 10px; color: #fff;">SİSTEM GEREKSİNİMLERİ</h3>
-        <p style="color: var(--text-gray); font-size: 0.9rem;">İŞLETİM SİSTEMİ: TERMINAL OS V3.2<br>HAFIZA: SOĞUKKANLILIK<br>VİCDAN MODÜLÜ: DEVRE DIŞI BIRAKILMASI ÖNERİLİR.</p>
-      </div>
-    </div>
-
-    <div class="bottom-info">
-      DEVELOPED FOR THE SECTOR-7 SURVIVAL INITIATIVE // TERMINAL INTERFACE v1.4
-    </div>
+  <div class="control-panel no-print">
+    <button onclick="toggleTheme()" id="btn-theme">🟡 Amber Teması</button>
+    <button onclick="toggleScanlines()" id="btn-scanlines">🖥️ CRT Efektini Kapat</button>
+    <button onclick="window.print()">🖨️ Yazdır / PDF Kaydet</button>
   </div>
+
+  <div class="bg-grid"></div>
+
+  <div class="poster">
+    <div class="poster-corner top-left"></div>
+    <div class="poster-corner top-right"></div>
+    <div class="poster-corner bottom-left"></div>
+    <div class="poster-corner bottom-right"></div>
+
+    <!-- HEADER -->
+    <header>
+      <div class="system-status">
+        <div class="status-dot"></div>
+        SEKTÖR-7 TERMINAL GÜVENLİK PROTOKOLÜ // KOD: 409-SİS
+      </div>
+      <div class="doc-no">DOSYA: RESMİ_TANITIM_AFIŞİ</div>
+    </header>
+
+    <!-- LOGO VE BİLGİ -->
+    <div class="logo-container">
+      <div class="logo-main">ROAD TO HELL</div>
+      <div class="logo-sub">Sektör 7</div>
+    </div>
+
+    <!-- ANA İÇERİK GRID -->
+    <div class="content-grid">
+      
+      <!-- SOL KOLON -->
+      <div class="col-left">
+        
+        <!-- GENRE & SYNOPSIS -->
+        <div class="card">
+          <div class="badge">Metin Tabanlı Hayatta Kalma RPG</div>
+          <div class="lore-text">
+            <strong>Yıl 2049.</strong> Küresel iklim çöktü, iletişim ağları sustu. Ve sonra... <strong>"Beyaz Sis"</strong> geldi. Temas edenleri delirten ve canavarlaştıran bu ölümcül sisin ortasında, insanlığın son kalesi Sektör-7'nin kapısında nöbet tutuyorsun. 
+            <p class="lore-highlight">
+              "Bu kapıdan içeri giren herkes kurtulmaz… Ama yanlış kişiyi içeri alırsan… Kimse kurtulamaz."
+            </p>
+          </div>
+        </div>
+
+        <!-- NASIL OYNANIR -->
+        <div class="card">
+          <h2 class="card-title">Oynanış ve Mekanikler</h2>
+          <ul class="mechanics-list">
+            <li class="mechanic-item">
+              <div class="mechanic-num">01</div>
+              <div>
+                <strong>Telsiz ve Terminal Sorgulamaları</strong>
+                Her gün sığınağın kapısına gelen sığınmacıların hikayelerini dinle, daktilo hızıyla akan terminal arayüzünde belgelerini incele.
+              </div>
+            </li>
+            <li class="mechanic-item">
+              <div class="mechanic-num">02</div>
+              <div>
+                <strong>Ahlaki Karar Çelişkileri</strong>
+                Sınırı geçmeye çalışanları sorgula. <em>İçeri al, reddet, gözaltına al ya da vur!</em> Doğru ya da yanlış cevap yok, verdiğin her kararın ağır bir bedeli var.
+              </div>
+            </li>
+            <li class="mechanic-item">
+              <div class="mechanic-num">03</div>
+              <div>
+                <strong>Sığınak Yönetimi & Dinamik Dengeler</strong>
+                Sığınağın <strong>Güvenlik</strong> ve <strong>Moral</strong> seviyelerini dengede tut. İçeri aldığın sakinlerin sığınak içindeki gelişimlerini ve çıkardıkları krizleri yönet.
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- TEKNİK DETAYLAR -->
+        <div class="specs-grid">
+          <div class="spec-item">
+            <div class="spec-label">Platform</div>
+            <div class="spec-value">Web Tarayıcı</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Arayüz</div>
+            <div class="spec-value">Retro CRT</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Hikaye</div>
+            <div class="spec-value">14 Günlük Döngü</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SAĞ KOLON -->
+      <div class="col-right">
+        
+        <!-- VISUAL ART BOX -->
+        <div class="visual-box">
+          <img src="road_to_hell_poster_art.png" alt="Road to Hell Poster Visual Art">
+          <div class="visual-overlay"></div>
+          <div class="visual-scanlines"></div>
+          <div class="visual-label">Sektör-7 Dış Kapı Kameraları</div>
+        </div>
+
+        <!-- ANA KARAKTERLER -->
+        <div class="card">
+          <h2 class="card-title">Dosya Kartları: Sığınmacılar</h2>
+          <div class="chars-grid">
+            
+            <div class="char-mini-card">
+              <div class="char-header">
+                <span class="char-name">MİNA</span>
+                <span class="char-class">ÖNEMLİ</span>
+              </div>
+              <p class="char-desc">Yalnız, gizemli bir çocuk. Sise karşı tuhaf bir bağışıklığı var gibi duruyor. Sığınağın geleceğinin anahtarı olabilir.</p>
+            </div>
+
+            <div class="char-mini-card">
+              <div class="char-header">
+                <span class="char-name">BOZKIR</span>
+                <span class="char-class">MUTANT?</span>
+              </div>
+              <p class="char-desc">Vücudu yavaş yavaş mutant bir kurda dönüşen eski bir madenci. Sığınakta barındırılması büyük tehlike arz ediyor.</p>
+            </div>
+
+            <div class="char-mini-card">
+              <div class="char-header">
+                <span class="char-name">DR. ARZU</span>
+                <span class="char-class">BİLİM İNSANI</span>
+              </div>
+              <p class="char-desc">Salgını bitirebilecek antikoru taşıyan idealist bir doktor. Ancak komutanlığın onunla ilgili planları farklı.</p>
+            </div>
+
+            <div class="char-mini-card">
+              <div class="char-header">
+                <span class="char-name">CAN (SERSERİ)</span>
+                <span class="char-class">ŞÜPHELİ</span>
+              </div>
+              <p class="char-desc">Sığınak kurallarını sevmeyen ama dış dünyadaki gizli tesisler ve örgütler hakkında paha biçilemez bilgilere sahip.</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-left">
+        DEVELOPED BY <span>SALİH KARTAŞ</span> & TEAM // PROJE: <span>ROAD2HELL</span>
+      </div>
+      <div class="footer-right">
+        <div class="cta-text">
+          <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 4px; font-family: 'Share Tech Mono', monospace;">ŞİMDİ TARAYICINIZDAN OYNAYIN</div>
+          <a href="https://salihkrts.github.io/ROAD2HELL/" target="_blank" class="cta-link">salihkrts.github.io/ROAD2HELL/</a>
+        </div>
+        <div class="qr-mock">
+          <!-- Simple inline SVG QR code representation for cyberpunk design -->
+          <svg viewBox="0 0 100 100">
+            <rect x="0" y="0" width="25" height="25" fill="#000"/>
+            <rect x="5" y="5" width="15" height="15" fill="#fff"/>
+            <rect x="10" y="10" width="5" height="5" fill="#000"/>
+            
+            <rect x="75" y="0" width="25" height="25" fill="#000"/>
+            <rect x="80" y="5" width="15" height="15" fill="#fff"/>
+            <rect x="85" y="10" width="5" height="5" fill="#000"/>
+            
+            <rect x="0" y="75" width="25" height="25" fill="#000"/>
+            <rect x="5" y="80" width="15" height="15" fill="#fff"/>
+            <rect x="10" y="85" width="5" height="5" fill="#000"/>
+
+            <rect x="30" y="5" width="10" height="5" fill="#000"/>
+            <rect x="45" y="0" width="5" height="15" fill="#000"/>
+            <rect x="55" y="10" width="15" height="5" fill="#000"/>
+            <rect x="35" y="20" width="15" height="5" fill="#000"/>
+            
+            <rect x="5" y="30" width="5" height="15" fill="#000"/>
+            <rect x="20" y="35" width="15" height="10" fill="#000"/>
+            <rect x="40" y="30" width="5" height="5" fill="#000"/>
+            <rect x="50" y="35" width="20" height="5" fill="#000"/>
+            <rect x="75" y="30" width="10" height="10" fill="#000"/>
+            
+            <rect x="30" y="50" width="15" height="5" fill="#000"/>
+            <rect x="5" y="55" width="10" height="5" fill="#000"/>
+            <rect x="20" y="60" width="5" height="15" fill="#000"/>
+            <rect x="55" y="50" width="5" height="20" fill="#000"/>
+            <rect x="65" y="55" width="15" height="5" fill="#000"/>
+            <rect x="85" y="45" width="10" height="15" fill="#000"/>
+
+            <rect x="35" y="65" width="10" height="10" fill="#000"/>
+            <rect x="50" y="75" width="15" height="5" fill="#000"/>
+            <rect x="70" y="70" width="5" height="20" fill="#000"/>
+            <rect x="80" y="80" width="15" height="5" fill="#000"/>
+            <rect x="30" y="85" width="5" height="10" fill="#000"/>
+            <rect x="45" y="90" width="20" height="5" fill="#000"/>
+          </svg>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const btn = document.getElementById('btn-theme');
+      if (body.classList.contains('theme-amber')) {
+        body.classList.remove('theme-amber');
+        btn.innerHTML = '🟡 Amber Teması';
+      } else {
+        body.classList.add('theme-amber');
+        btn.innerHTML = '🟢 Yeşil Tema';
+      }
+    }
+
+    function toggleScanlines() {
+      const body = document.body;
+      const btn = document.getElementById('btn-scanlines');
+      if (body.classList.contains('no-scanlines')) {
+        body.classList.remove('no-scanlines');
+        btn.innerHTML = '🖥️ CRT Efektini Kapat';
+      } else {
+        body.classList.add('no-scanlines');
+        btn.innerHTML = '🖥️ CRT Efektini Aç';
+      }
+    }
+  </script>
 
 </body>
 </html>

@@ -87,13 +87,6 @@ function SettingsMenu({ settings, updateSetting, onClose, t, isPauseMode, onQuit
 
   const renderAccessibility = () => (
     <div className="settings-tab-content">
-      <div className="setting-item">
-        <label>{t('font_size_label')}</label>
-        <select value={settings.fontSize || 'standard'} onChange={(e) => updateSetting('fontSize', e.target.value)}>
-          <option value="standard">{t('font_size_standard')}</option>
-          <option value="large">{t('font_size_large')}</option>
-        </select>
-      </div>
       <div className="setting-item toggle-item">
         <label>{t('high_contrast_label')}</label>
         <input type="checkbox" checked={settings.highContrast} onChange={(e) => updateSetting('highContrast', e.target.checked)} />
