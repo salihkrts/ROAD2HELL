@@ -1,0 +1,101 @@
+.daily-news-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #030501;
+  color: #00ff41;
+  font-family: 'Courier New', Courier, monospace;
+  z-index: 50;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.news-container {
+  max-width: 800px;
+  width: 90%;
+  border: 1px solid #00ff41;
+  background-color: rgba(0, 255, 65, 0.05);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.1), inset 0 0 10px rgba(0, 255, 65, 0.05);
+  position: relative;
+  z-index: 2;
+}
+
+.news-header {
+  border-bottom: 1px solid #00ff41;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 2px;
+  background-color: rgba(0, 255, 65, 0.15);
+  text-shadow: 0 0 5px #00ff41;
+}
+
+.news-content {
+  padding: 2rem;
+  line-height: 1.8;
+  font-size: 1.2rem;
+  min-height: 250px;
+}
+
+.news-footer {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid rgba(0, 255, 65, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.news-continue-btn {
+  background: transparent;
+  color: #00ff41;
+  border: 1px solid #00ff41;
+  padding: 0.8rem 2rem;
+  font-family: inherit;
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  animation: pulseButton 2s infinite;
+}
+
+.news-continue-btn:hover {
+  background-color: #00ff41;
+  color: #000;
+  box-shadow: 0 0 15px #00ff41;
+}
+
+@keyframes pulseButton {
+  0% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(0, 255, 65, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0); }
+}
+
+.news-line {
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.security-log-header {
+  margin-top: 2rem !important;
+  color: #ffb000 !important;
+  font-weight: bold;
+  border-bottom: 1px dashed rgba(255, 176, 0, 0.5);
+  padding-bottom: 0.5rem;
+  text-shadow: 0 0 5px rgba(255, 176, 0, 0.8);
+}
+
+.security-log-line {
+  color: #ffdc50 !important;
+  font-size: 1.05rem !important;
+  border-left: 3px solid #ffb000;
+  padding-left: 1rem;
+  background-color: rgba(255, 176, 0, 0.05);
+  margin-top: 0.5rem;
+  font-style: italic;
+}

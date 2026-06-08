@@ -1,0 +1,70 @@
+/* NightEventScreen.css Sinematik Redesign Overhaul */
+
+.night-event-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  cursor: crosshair;
+}
+
+.night-content {
+  width: 90%;
+  max-width: 900px;
+  background: rgba(15, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 62, 62, 0.2);
+  padding: 60px;
+  border-radius: 8px;
+  box-shadow: 0 0 100px rgba(255, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.night-warning-title {
+  font-size: 1.4rem;
+  letter-spacing: 8px;
+  color: var(--accent-red);
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--accent-red);
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 20px var(--accent-red);
+}
+
+.night-narrative {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  min-height: 150px;
+}
+
+.night-footer {
+  font-size: 0.8rem;
+  letter-spacing: 5px;
+  opacity: 0.4;
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+
+.night-event-overlay .terminal-btn {
+  background: rgba(255, 62, 62, 0.1) !important;
+  border-color: rgba(255, 62, 62, 0.4) !important;
+  color: var(--accent-red) !important;
+  margin-top: 40px;
+  align-self: center;
+  padding: 15px 40px;
+}
+
+.night-event-overlay .terminal-btn:hover {
+  background: var(--accent-red) !important;
+  color: #000 !important;
+  box-shadow: 0 0 50px var(--accent-red);
+}

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-width=1.0">
+  <title>ORBITAL NADIR - Sunum Posteri</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-neon: #00ff41;
+      --danger-neon: #ff003c;
+      --bg-dark: #050505;
+      --text-gray: #a0aab5;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--primary-neon);
+      font-family: 'Share Tech Mono', monospace;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-image: 
+        linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.95)),
+        url('/src/assets/background_visual_check_1774664813480.webp');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    /* Scanlines effect */
+    body::before {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.25) 50%
+      );
+      background-size: 100% 4px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .poster-container {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      margin: 40px;
+      padding: 60px;
+      background: rgba(10, 15, 12, 0.7);
+      border: 2px solid rgba(0, 255, 65, 0.3);
+      box-shadow: 0 0 50px rgba(0, 255, 65, 0.1),
+                  inset 0 0 30px rgba(0, 255, 65, 0.05);
+      z-index: 3;
+      backdrop-filter: blur(10px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      border-radius: 10px;
+    }
+
+    /* Glitch borders */
+    .poster-container::after {
+      content: '';
+      position: absolute;
+      top: -2px; left: -2px; right: -2px; bottom: -2px;
+      border: 2px solid var(--primary-neon);
+      z-index: -1;
+      animation: borderFlicker 4s infinite;
+      border-radius: 10px;
+    }
+
+    .poster-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .game-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 5rem;
+      font-weight: 900;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 10px;
+      color: #fff;
+      text-shadow: 0 0 10px var(--primary-neon),
+                   0 0 20px var(--primary-neon),
+                   0 0 40px var(--primary-neon);
+      animation: textGlitch 3s infinite;
+    }
+
+    .tagline {
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 30px;
+      font-style: italic;
+      text-shadow: 0 0 5px var(--primary-neon);
+    }
+
+    .genre-badge {
+      display: inline-block;
+      padding: 10px 20px;
+      border: 1px solid var(--primary-neon);
+      background: rgba(0, 255, 65, 0.1);
+      font-size: 1.2rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+      box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+    }
+
+    .synopsis {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      color: var(--text-gray);
+      margin-bottom: 40px;
+      border-left: 4px solid var(--primary-neon);
+      padding-left: 20px;
+    }
+
+    .features-list {
+      list-style: none;
+    }
+
+    .features-list li {
+      font-size: 1.15rem;
+      color: #fff;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .features-list li::before {
+      content: '>';
+      color: var(--primary-neon);
+      margin-right: 15px;
+      font-weight: bold;
+      text-shadow: 0 0 5px var(--primary-neon);
+    }
+
+    .poster-right {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .character-showcase {
+      width: 100%;
+      height: 250px;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--primary-neon);
+      position: relative;
+      filter: grayscale(80%) contrast(120%);
+      transition: filter 0.3s ease;
+    }
+
+    .character-showcase:hover {
+      filter: grayscale(0%) contrast(100%);
+    }
+
+    .char-1 { background-image: url('/faces/d8_aras.png'); }
+    .char-2 { background-image: url('/faces/scout_vera.png'); }
+
+    .character-label {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.8);
+      padding: 5px 10px;
+      border: 1px solid var(--primary-neon);
+      font-size: 0.9rem;
+    }
+
+    .bottom-info {
+      position: absolute;
+      bottom: -40px;
+      right: 0;
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      letter-spacing: 1px;
+    }
+
+    /* Animations */
+    @keyframes textGlitch {
+      0%, 100% { text-shadow: 0 0 10px var(--primary-neon); }
+      92% { text-shadow: 0 0 10px var(--primary-neon); }
+      93% { text-shadow: 3px 0 0 var(--danger-neon), -3px 0 0 #0ff; transform: translate(2px, 0); }
+      95% { text-shadow: -3px 0 0 var(--danger-neon), 3px 0 0 #0ff; transform: translate(-2px, 0); }
+      97% { text-shadow: 0 0 10px var(--primary-neon); transform: translate(0, 0); }
+    }
+
+    @keyframes borderFlicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+      51% { opacity: 1; }
+      52% { opacity: 0.2; }
+      53% { opacity: 1; }
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .poster-container {
+        grid-template-columns: 1fr;
+        padding: 30px;
+      }
+      .game-title {
+        font-size: 3.5rem;
+      }
+      .character-showcase {
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="poster-container">
+    <!-- Sol Taraf: Metin ve Oyun Bilgisi -->
+    <div class="poster-left">
+      <h1 class="game-title">ORBITAL NADIR</h1>
+      <p class="tagline">"Işık hiç bu kadar şeffaf olmamıştı..."</p>
+      
+      <div class="genre-badge">
+        METİN TABANLI (TEXT-BASED) HAYATTA KALMA RPG
+      </div>
+
+      <div class="synopsis">
+        Dünya nükleer bir felaketin ardından "Gümüş Sis" adlı radyoaktif, zihin bükücü bir dalga tarafından yutuldu. Sektör-7, insanlığın son güvenli kalesi. Sen, bu kalenin sınır kapısındaki Bekçisin. Görevin basit ama acımasız: Kimin içeri gireceğine ve kimin sise terk edileceğine karar vermek.
+      </div>
+
+      <ul class="features-list">
+        <li><strong>AHLAKİ KARARLAR:</strong> Kapına gelen siviller, tarikatçılar ve askerler arasında seçim yap. Merhamet mi edeceksin, yoksa güvenliği mi seçeceksin?</li>
+        <li><strong>DİNAMİK DENGE:</strong> Sektörün Moral ve Güvenlik seviyelerini dengede tut. Biri sıfırlanırsa sistem çöker.</li>
+        <li><strong>ZENGİN HİKAYE:</strong> 14 zorlu gün boyunca "Vera'nın Ordusu" ve "Gümüş Çocuk" efsanesinin gizemini çöz.</li>
+        <li><strong>6 FARKLI EPİK SON:</strong> Yaptığın seçimler sadece kimin öleceğini değil, dünyanın nasıl sona ereceğini de belirleyecek.</li>
+      </ul>
+    </div>
+
+    <!-- Sağ Taraf: Görseller ve Karakterler -->
+    <div class="poster-right">
+      <div class="character-showcase char-1">
+        <div class="character-label">ARAS [Yapay Zeka Müttefik]</div>
+      </div>
+      <div class="character-showcase char-2">
+        <div class="character-label">VERA [Sisin Elçisi]</div>
+      </div>
+      
+      <div style="margin-top: auto; padding: 20px; border: 1px solid var(--primary-neon); background: rgba(0,255,65,0.05); text-align: center;">
+        <h3 style="margin-bottom: 10px; color: #fff;">SİSTEM GEREKSİNİMLERİ</h3>
+        <p style="color: var(--text-gray); font-size: 0.9rem;">İŞLETİM SİSTEMİ: TERMINAL OS V3.2<br>HAFIZA: SOĞUKKANLILIK<br>VİCDAN MODÜLÜ: DEVRE DIŞI BIRAKILMASI ÖNERİLİR.</p>
+      </div>
+    </div>
+
+    <div class="bottom-info">
+      DEVELOPED FOR THE SECTOR-7 SURVIVAL INITIATIVE // TERMINAL INTERFACE v1.4
+    </div>
+  </div>
+
+</body>
+</html>

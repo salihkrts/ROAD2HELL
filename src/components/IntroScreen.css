@@ -1,0 +1,77 @@
+/* IntroScreen.css Sinematik Redesign Overhaul */
+
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #050505;
+  background-image: 
+    linear-gradient(rgba(5, 5, 5, 0.90), rgba(5, 5, 5, 0.95)),
+    url('/src/assets/background_visual_check_1774664813480.webp');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 500;
+  cursor: crosshair;
+}
+
+.intro-terminal {
+  width: 80%;
+  max-width: 900px;
+  background: rgba(0, 15, 0, 0.4);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(0, 255, 65, 0.1);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+  padding: 50px 70px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  animation: introPanelFade 2s ease-out;
+}
+
+@keyframes introPanelFade {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.intro-display {
+  font-size: 1.5rem;
+  text-align: center;
+  color: var(--neon-green);
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+  line-height: 1.8;
+  flex: none; /* Introda flex:2 olmasın */
+}
+
+.hint-text {
+  font-size: 0.8rem;
+  letter-spacing: 5px;
+  opacity: 0.4;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  animation: pulse 2s infinite;
+  margin-top: 20px;
+}
+
+.intro-hub {
+  border-left: none !important;
+  padding-left: 0 !important;
+  flex: none !important;
+}
+
+/* THE BUGFIX: UGLY SCROLLBAR KILLER */
+.intro-screen *::-webkit-scrollbar {
+  display: none !important;
+}
+.intro-screen * {
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
+}

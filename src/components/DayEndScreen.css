@@ -1,0 +1,197 @@
+/* DayEndScreen.css Sinematik Redesign Overhaul */
+
+.day-end-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  cursor: crosshair;
+}
+
+.day-end-content {
+  width: 90%;
+  max-width: 1000px;
+  background: var(--terminal-bg);
+  backdrop-filter: var(--glass-blur);
+  border: var(--border-glow);
+  padding: 50px;
+  border-radius: 8px;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.9);
+  position: relative;
+  overflow: hidden;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-header {
+  font-size: 1.2rem;
+  letter-spacing: 5px;
+  color: var(--neon-green);
+  border-bottom: 2px solid var(--neon-green);
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  text-shadow: var(--crt-glow);
+}
+
+.narrative-text {
+  font-size: 1.4rem;
+  line-height: 1.8;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  margin-bottom: 40px;
+}
+
+.report-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  background: rgba(0, 255, 65, 0.05);
+  padding: 30px;
+  border-radius: 4px;
+}
+
+.report-box p {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.pass-text { color: var(--neon-green); }
+.arrest-text { color: var(--accent-red); }
+.deny-text { color: #888; }
+
+.consequences-log {
+  margin-top: 2rem;
+  background: rgba(0, 0, 20, 0.6);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  padding: 1.5rem;
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.consequences-log h3 {
+  color: #22c55e;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+  border-bottom: 1px solid rgba(34, 197, 94, 0.2);
+  padding-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.consequence-item {
+  margin-bottom: 0.8rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.consequence-name {
+  color: #fbbf24;
+  white-space: nowrap;
+}
+
+.consequence-text {
+  color: #e5e7eb;
+}
+
+.consequences-log::-webkit-scrollbar {
+  width: 4px;
+}
+
+.consequences-log::-webkit-scrollbar-thumb {
+  background: #22c55e;
+}
+
+.next-phase-btn {
+  align-self: flex-end;
+  margin-top: auto;
+  background: transparent;
+  border: 1px solid var(--neon-green);
+  color: var(--neon-green);
+  padding: 15px 40px;
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.next-phase-btn:hover {
+  background: var(--neon-green);
+  color: #000;
+  box-shadow: 0 0 30px var(--neon-green);
+}
+
+.night-phase .night-message {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  font-style: italic;
+  text-align: center;
+  color: var(--accent-red);
+  text-shadow: 0 0 20px rgba(255, 62, 62, 0.5);
+}
+
+.next-day-btn {
+  align-self: center;
+  margin-top: 40px;
+  background: var(--accent-red);
+  color: #fff;
+  border: none;
+  padding: 20px 60px;
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.4s;
+  box-shadow: 0 0 30px var(--accent-red);
+}
+
+.next-day-btn:hover {
+  background: #fff;
+  color: #ff0000;
+  letter-spacing: 8px;
+  box-shadow: 0 0 50px #fff;
+}
+
+/* SIĞINAK ZİYARET BUTONU */
+.shelter-enter-btn {
+  align-self: center;
+  margin-top: 20px;
+  background: rgba(30, 20, 0, 0.9);
+  color: rgba(255, 200, 80, 0.9);
+  border: 1px solid rgba(255, 180, 0, 0.5);
+  padding: 14px 50px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 0 20px rgba(255, 120, 0, 0.15);
+}
+.shelter-enter-btn:hover {
+  background: rgba(255, 150, 0, 0.2);
+  color: #fff;
+  border-color: rgba(255, 180, 0, 0.9);
+  box-shadow: 0 0 30px rgba(255, 120, 0, 0.35);
+  letter-spacing: 6px;
+}

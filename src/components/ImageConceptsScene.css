@@ -1,0 +1,165 @@
+/* ────────────────────────────────────────────────
+   ImageConceptsScene.css
+   Orbital Nadir — Görsel Tasvirler Ekranı
+──────────────────────────────────────────────── */
+
+.scene-wrapper {
+  position: fixed;
+  inset: 0;
+  background: #080a0e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 48px 32px 32px;
+  overflow-y: auto;
+  z-index: 100;
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  color: #c8ffc8;
+
+  /* CRT tarama çizgisi efekti */
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 255, 80, 0.03) 2px,
+      rgba(0, 255, 80, 0.03) 4px
+    );
+}
+
+/* ── Başlık ── */
+.scene-title {
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #00ff55;
+  text-shadow:
+    0 0 10px rgba(0, 255, 85, 0.8),
+    0 0 30px rgba(0, 255, 85, 0.4);
+  margin-bottom: 40px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 255, 85, 0.3);
+  padding-bottom: 16px;
+  width: 100%;
+  max-width: 900px;
+  animation: titleFlicker 4s ease-in-out infinite;
+}
+
+@keyframes titleFlicker {
+  0%, 100% { opacity: 1; }
+  92%       { opacity: 1; }
+  93%       { opacity: 0.6; }
+  94%       { opacity: 1; }
+  97%       { opacity: 0.8; }
+  98%       { opacity: 1; }
+}
+
+/* ── Kart Izgarası ── */
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 40px;
+}
+
+/* ── Tek Kart ── */
+.concept-card {
+  background: rgba(0, 20, 10, 0.85);
+  border: 1px solid rgba(0, 255, 85, 0.25);
+  border-radius: 4px;
+  padding: 24px 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.concept-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ff55, transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.concept-card:hover {
+  border-color: rgba(0, 255, 85, 0.7);
+  box-shadow: 0 0 20px rgba(0, 255, 85, 0.15), inset 0 0 20px rgba(0, 255, 85, 0.03);
+  transform: translateY(-3px);
+}
+
+.concept-card:hover::before {
+  opacity: 1;
+}
+
+/* Kart köşe süsü */
+.concept-card::after {
+  content: '◈';
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 0.7rem;
+  color: rgba(0, 255, 85, 0.4);
+}
+
+.concept-title {
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #00ff55;
+  margin-bottom: 12px;
+  text-shadow: 0 0 8px rgba(0, 255, 85, 0.5);
+}
+
+.concept-text {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: rgba(180, 220, 180, 0.85);
+  margin: 0;
+}
+
+/* ── DEVAM Butonu ── */
+.btn-primary {
+  background: transparent;
+  border: 1px solid #00ff55;
+  color: #00ff55;
+  font-family: inherit;
+  font-size: 0.95rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding: 14px 48px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s, background 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #00ff55;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  z-index: 0;
+}
+
+.btn-primary:hover::before {
+  transform: scaleX(1);
+}
+
+.btn-primary:hover {
+  color: #080a0e;
+  box-shadow: 0 0 20px rgba(0, 255, 85, 0.4);
+}
+
+.btn-primary span,
+.btn-primary {
+  position: relative;
+  z-index: 1;
+}

@@ -1,0 +1,185 @@
+/* FailStateScreen.css Sinematik Redesign Master Overhaul */
+
+.fail-state-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  cursor: crosshair;
+  overflow: hidden;
+}
+
+.fail-bg-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(1) contrast(1.5) brightness(0.15) blur(5px);
+  opacity: 0.6;
+  z-index: 1;
+  transform: scale(1.1);
+  animation: bgPanic 20s infinite alternate;
+}
+
+@keyframes bgPanic {
+  from { transform: scale(1.1) rotate(0deg); }
+  to { transform: scale(1.2) rotate(1deg); }
+}
+
+.fail-content {
+  position: relative;
+  z-index: 10;
+  width: 90%;
+  max-width: 1200px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 62, 62, 0.3);
+  padding: 80px;
+  border-radius: 12px;
+  box-shadow: 0 0 150px rgba(0, 0, 0, 1), inset 0 0 50px rgba(255, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.ending-title {
+  font-size: 2.5rem;
+  letter-spacing: 15px;
+  color: #fff;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.3);
+  text-align: center;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 30px;
+  margin-bottom: 20px;
+}
+
+.fail-msg-row {
+  font-size: 1.4rem;
+  line-height: 1.8;
+  color: #ddd;
+  display: flex;
+  gap: 20px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.msg-prefix {
+  color: var(--accent-red);
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.critical-final {
+  margin-top: 50px;
+  font-size: 2.2rem;
+  color: var(--accent-red);
+  font-weight: 900;
+  text-align: center;
+  background: rgba(255, 0, 0, 0.1);
+  padding: 40px;
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 0 0 80px rgba(255, 0, 0, 0.2);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.restart-btn {
+  margin-top: 50px;
+  background: rgba(0, 255, 65, 0.05) !important;
+  color: var(--neon-green) !important;
+  padding: 18px 80px;
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 10px;
+  align-self: center;
+  border: 1px solid rgba(0, 255, 65, 0.6);
+  position: relative;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 0 30px rgba(0, 255, 65, 0.2), inset 0 0 10px rgba(0, 255, 65, 0.1);
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+}
+
+/* Tech corner accents */
+.restart-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--neon-green);
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+  opacity: 0.4;
+}
+
+.restart-btn:hover {
+  background: var(--neon-green) !important;
+  color: #000 !important;
+  letter-spacing: 14px;
+  border-color: var(--neon-green);
+  box-shadow: 0 0 80px rgba(0, 255, 65, 0.8), 0 0 30px rgba(0, 255, 65, 0.4);
+  text-shadow: none;
+  transform: translateY(-2px);
+}
+
+.restart-btn:hover::after {
+  opacity: 1;
+}
+
+.restart-btn:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 0 20px var(--neon-green);
+}
+
+/* EPIC DAY 14 ENDINGS STYLES */
+.epic-ending .fail-bg-image {
+  filter: grayscale(0.2) contrast(1.3) brightness(0.4) blur(1px);
+  opacity: 0.8;
+  animation: bgEpicPulse 15s infinite alternate;
+}
+
+@keyframes bgEpicPulse {
+  from { transform: scale(1.05) translate(0, 0); }
+  to { transform: scale(1.15) translate(-10px, 10px); }
+}
+
+.epic-ending .fail-content {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 100px rgba(100, 200, 255, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.7);
+}
+
+.epic-win .ending-title {
+  color: #fff;
+  text-shadow: 0 0 40px rgba(100, 200, 255, 0.8);
+  border-bottom: 2px solid rgba(100, 200, 255, 0.3);
+}
+
+.epic-win .critical-final {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  background: rgba(100, 200, 255, 0.15);
+  border: 1px solid rgba(100, 200, 255, 0.5);
+  box-shadow: 0 0 60px rgba(100, 200, 255, 0.3);
+}
+
+.epic-fail .fail-bg-image {
+  filter: grayscale(0.1) contrast(1.5) brightness(0.3) saturate(1.5) hue-rotate(90deg) blur(2px) !important;
+}
+
+.epic-fail .ending-title {
+  color: #fff;
+  text-shadow: 0 0 40px rgba(100, 255, 100, 0.8);
+  border-bottom: 2px solid rgba(100, 255, 100, 0.3);
+}
+
+.epic-fail .critical-final {
+  color: #aaffaa;
+  background: rgba(0, 255, 0, 0.1);
+  border: 1px solid rgba(0, 255, 0, 0.5);
+  box-shadow: 0 0 100px rgba(0, 255, 0, 0.3), inset 0 0 50px rgba(0, 255, 0, 0.2);
+}
+

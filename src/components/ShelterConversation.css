@@ -1,0 +1,432 @@
+/* ============================================================
+   ShelterConversation.css — Loş Sığınak Sahnesi (Tam Yeniden Yazım)
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Share+Tech+Mono&display=swap');
+
+/* ── FULL‐SCREEN OVERLAY ── */
+.shelter-conv-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: scFadeIn 0.7s ease-out forwards;
+}
+@keyframes scFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── DARK SHELTER BACKGROUND ── */
+.shelter-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 50% 110%, rgba(50, 35, 5, 0.7) 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 70%, rgba(255,100,0,0.04) 0%, transparent 40%),
+    radial-gradient(ellipse at 85% 30%, rgba(255,80,0,0.03) 0%, transparent 35%),
+    linear-gradient(180deg, #000 0%, #080500 50%, #0e0900 100%);
+}
+
+/* Metal duvar dokusu (yatay çizgiler) */
+.shelter-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,150,0,0.012) 0px,
+      transparent 1px,
+      transparent 80px,
+      rgba(255,150,0,0.012) 81px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      rgba(255,255,255,0.01) 0px,
+      transparent 1px,
+      transparent 120px,
+      rgba(255,255,255,0.01) 121px
+    );
+}
+
+/* ── BULANIK SİLUETLER ── */
+.shelter-silhouettes {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.silhouette {
+  position: absolute;
+  bottom: 0;
+  border-radius: 60px 60px 0 0;
+  filter: blur(12px);
+  animation: silhouetteSway 7s ease-in-out infinite alternate;
+  background: rgba(255,255,255,0.025);
+}
+.silhouette:nth-child(1) { left: 5%;  width:55px; height:105px; animation-delay:0s;   opacity:0.6; }
+.silhouette:nth-child(2) { left:13%;  width:40px; height:135px; animation-delay:1.5s; opacity:0.35; }
+.silhouette:nth-child(3) { left:22%;  width:50px; height:90px;  animation-delay:3s;   opacity:0.25; }
+.silhouette:nth-child(4) { right:6%;  width:55px; height:120px; animation-delay:0.7s; opacity:0.55; }
+.silhouette:nth-child(5) { right:15%; width:45px; height:100px; animation-delay:2.2s; opacity:0.3; }
+.silhouette:nth-child(6) { right:24%; width:38px; height:80px;  animation-delay:4s;   opacity:0.2; }
+
+@keyframes silhouetteSway {
+  0%   { transform: translateX(0) scaleX(1); }
+  100% { transform: translateX(8px) scaleX(0.96); }
+}
+
+/* ── SİS ── */
+.shelter-fog {
+  position: absolute;
+  inset: -20%;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 30% 80%, rgba(200,200,180,0.035) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(220,200,150,0.025) 0%, transparent 45%);
+  filter: blur(40px);
+  animation: fogDrift 16s ease-in-out infinite alternate;
+}
+@keyframes fogDrift {
+  0%   { transform: translate(0,0) scale(1);       opacity: 0.6; }
+  50%  { transform: translate(-3%,4%) scale(1.08); opacity: 0.9; }
+  100% { transform: translate(4%,-3%) scale(1.04); opacity: 0.5; }
+}
+
+/* Tarama çizgileri */
+.shelter-scanlines {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1) 0px, transparent 2px);
+}
+
+/* ── CLOSE BUTTON ── */
+.shelter-close-btn {
+  position: absolute;
+  top: 18px; right: 22px;
+  z-index: 999;
+  background: rgba(255,50,50,0.1) !important;
+  border: 1px solid rgba(255,60,60,0.35) !important;
+  color: rgba(255,100,100,0.85) !important;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: all 0.2s !important;
+}
+.shelter-close-btn:hover {
+  background: rgba(255,60,60,0.35) !important;
+  color: #fff !important;
+}
+
+/* ── MAIN LAYOUT ── */
+.shelter-conv-content {
+  position: relative;
+  z-index: 10;
+  width: 960px;
+  max-width: 96vw;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 0;
+  height: 78vh;
+  max-height: 680px;
+  background: rgba(5, 4, 0, 0.6);
+  border: 1px solid rgba(255,180,0,0.1);
+  border-top: 2px solid rgba(255,180,0,0.35);
+  overflow: hidden;
+}
+
+/* ── SOL PANEL: Karakter Portresi ── */
+.shelter-left-panel {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  background: rgba(0,0,0,0.4);
+  border-right: 1px solid rgba(255,180,0,0.08);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.shelter-portrait-full {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.shelter-portrait-full img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  filter: brightness(0.65) sepia(0.25) contrast(1.1);
+}
+.shelter-portrait-full::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 120px;
+  background: linear-gradient(transparent, rgba(5,4,0,0.98));
+}
+
+/* Karakter bilgileri (portre altı) */
+.shelter-char-meta {
+  padding: 16px 18px 20px;
+  background: rgba(5,4,0,0.9);
+  border-top: 1px solid rgba(255,180,0,0.07);
+}
+.shelter-char-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: rgba(255,185,50,0.95);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-shadow: 0 0 15px rgba(255,120,0,0.3);
+}
+.shelter-char-role {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.28);
+  letter-spacing: 3px;
+  margin-top: 3px;
+}
+
+/* Bağ Seviyesi */
+.shelter-bond-section {
+  margin-top: 12px;
+}
+.shelter-bond-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.shelter-bond-lbl {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.3);
+}
+.shelter-bond-val {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.bond-low  .shelter-bond-val { color: rgba(255,80,80,0.8); }
+.bond-mid  .shelter-bond-val { color: rgba(255,180,0,0.8); }
+.bond-high .shelter-bond-val { color: rgba(0,255,65,0.8);  }
+
+.shelter-bond-track-full {
+  width: 100%;
+  height: 5px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.shelter-bond-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1s cubic-bezier(0.25,0.8,0.25,1);
+}
+.bond-low  .shelter-bond-fill { background: linear-gradient(90deg,#ff3e3e,#ff6b6b); }
+.bond-mid  .shelter-bond-fill { background: linear-gradient(90deg,#f5a623,#ffd27a); }
+.bond-high .shelter-bond-fill { background: linear-gradient(90deg,#00ff41,#7fff7a); }
+
+.shelter-bond-status {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  margin-top: 5px;
+}
+.bond-low  .shelter-bond-status { color: rgba(255,80,80,0.6); }
+.bond-mid  .shelter-bond-status { color: rgba(255,180,0,0.6); }
+.bond-high .shelter-bond-status { color: rgba(0,255,65,0.6);  }
+
+/* ── SAĞ PANEL: Diyalog ── */
+.shelter-right-panel {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Sağ panel başlık çubuğu */
+.shelter-right-header {
+  padding: 14px 22px;
+  border-bottom: 1px solid rgba(255,180,0,0.07);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.shelter-right-header-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,180,0,0.5);
+  animation: dotBlink 2s infinite alternate;
+}
+@keyframes dotBlink {
+  0%   { opacity: 0.4; }
+  100% { opacity: 1; box-shadow: 0 0 6px rgba(255,180,0,0.6); }
+}
+.shelter-right-header-text {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 3px;
+}
+
+/* Diyalog alanı */
+.shelter-dialogue-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scrollbar-width: none;
+}
+.shelter-dialogue-area::-webkit-scrollbar { display: none; }
+
+/* Diyalog kutusu */
+.shelter-dialogue-box {
+  background: rgba(8,6,0,0.7);
+  border: 1px solid rgba(255,180,0,0.1);
+  border-left: 3px solid rgba(255,180,0,0.4);
+  padding: 20px 22px;
+  position: relative;
+}
+.shelter-dialogue-text {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1rem;
+  line-height: 1.9;
+  color: rgba(255,215,140,0.9);
+  text-shadow: 0 0 8px rgba(255,150,0,0.15);
+}
+
+/* Özel sahne rozeti */
+.shelter-special-badge {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 3px;
+  color: rgba(255,220,50,0.85);
+  background: rgba(255,180,0,0.08);
+  border: 1px solid rgba(255,180,0,0.25);
+  padding: 3px 9px;
+  display: inline-block;
+  margin-bottom: 10px;
+  animation: badgePulse 2s infinite alternate;
+}
+@keyframes badgePulse {
+  0%   { opacity: 0.6; }
+  100% { opacity: 1; box-shadow: 0 0 12px rgba(255,180,0,0.35); }
+}
+
+/* ── SAĞ ALT PANEL: Seçimler ── */
+.shelter-choice-panel {
+  grid-column: 2;
+  grid-row: 2;
+  border-top: 1px solid rgba(255,180,0,0.07);
+  background: rgba(3,2,0,0.8);
+  padding: 16px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.shelter-choice-hint {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.58rem;
+  color: rgba(255,255,255,0.18);
+  letter-spacing: 3px;
+  margin-bottom: 2px;
+}
+
+.shelter-choice-btn {
+  background: rgba(10, 8, 0, 0.8) !important;
+  border: 1px solid rgba(255, 180, 0, 0.15) !important;
+  color: rgba(255, 200, 100, 0.75) !important;
+  font-family: 'Share Tech Mono', monospace !important;
+  font-size: 0.82rem !important;
+  padding: 11px 18px !important;
+  text-align: left !important;
+  cursor: pointer;
+  transition: all 0.2s !important;
+  letter-spacing: 1px !important;
+  position: relative;
+}
+.shelter-choice-btn::before { content: "> "; color: rgba(255,150,0,0.5); }
+.shelter-choice-btn:hover {
+  background: rgba(255,150,0,0.1) !important;
+  border-color: rgba(255,180,0,0.5) !important;
+  color: rgba(255,230,160,1) !important;
+  transform: translateX(5px) !important;
+  box-shadow: -3px 0 0 rgba(255,180,0,0.4) !important;
+}
+.choice-supportive { border-left: 3px solid rgba(0,255,65,0.4) !important; }
+.choice-harsh      { border-left: 3px solid rgba(255,60,60,0.4) !important; }
+.choice-skeptic    { border-left: 3px solid rgba(255,180,0,0.4) !important; }
+
+/* ── SONUÇ KUTUSU ── */
+.shelter-result-box {
+  background: rgba(4,3,0,0.95);
+  border: 1px solid rgba(255,180,0,0.07);
+  border-left: 3px solid rgba(255,100,0,0.5);
+  padding: 18px 22px;
+  animation: resultSlide 0.4s ease-out;
+}
+@keyframes resultSlide {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.shelter-result-text {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: rgba(200,175,115,0.9);
+  font-style: italic;
+}
+.shelter-bond-change {
+  margin-top: 10px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 3px;
+}
+.bond-gained { color: rgba(0,255,65,0.85); }
+.bond-lost   { color: rgba(255,60,60,0.85); }
+
+.shelter-continue-btn {
+  background: rgba(20,15,0,0.95) !important;
+  border: 1px solid rgba(255,180,0,0.3) !important;
+  color: rgba(255,195,70,0.9) !important;
+  font-family: 'Oswald', sans-serif !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 4px !important;
+  padding: 10px 28px !important;
+  cursor: pointer;
+  transition: all 0.22s !important;
+  align-self: flex-end;
+  margin-top: 4px;
+}
+.shelter-continue-btn:hover {
+  background: rgba(255,150,0,0.18) !important;
+  color: #fff !important;
+}
+
+/* ── NO DIALOGUE ── */
+.shelter-no-dialogue {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.2);
+  text-align: center;
+  padding: 40px;
+  letter-spacing: 2px;
+  line-height: 2;
+}
