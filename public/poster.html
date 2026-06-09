@@ -363,11 +363,16 @@
 
     /* ── VISUAL ART BOX ── */
     .visual-box {
-      border: 1px solid var(--border);
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 20px var(--gold-glow);
       position: relative;
       height: 250px;
       overflow: hidden;
-      box-shadow: 0 0 20px rgba(0,0,0,0.8);
+      transition: all 0.3s ease;
+    }
+    .visual-box:hover {
+      box-shadow: 0 0 30px rgba(255, 204, 68, 0.6);
+      transform: scale(1.02);
     }
     .visual-box img {
       width: 100%;
@@ -411,6 +416,37 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .char-mini-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--green);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .char-mini-card:hover {
+      border-color: var(--green);
+      box-shadow: 0 0 12px var(--green-glow);
+      transform: translateY(-2px);
+    }
+    .char-mini-card:hover::after {
+      transform: scaleX(1);
+    }
+    .char-stat {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-top: 6px;
+      border-top: 1px dashed rgba(0, 255, 85, 0.15);
+      padding-top: 4px;
+      letter-spacing: 0.05em;
     }
     .char-header {
       display: flex;
@@ -624,6 +660,102 @@
       }
     }
 
+    /* ── GÖSTERGELER VE DIAGNOSTICS ── */
+    .diagnostics-card {
+      border: 1px dashed var(--border);
+    }
+    .diag-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .diag-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-family: 'Share Tech Mono', monospace;
+    }
+    .diag-label {
+      color: var(--text-dim);
+      flex: 1;
+    }
+    .progress-bar-container {
+      width: 100px;
+      height: 8px;
+      background: rgba(0, 255, 85, 0.1);
+      border: 1px solid var(--border);
+      margin: 0 10px;
+      position: relative;
+    }
+    .progress-bar {
+      height: 100%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+    }
+    .security-bar {
+      background: var(--green);
+    }
+    .morale-bar {
+      background: var(--gold);
+      box-shadow: 0 0 6px rgba(255, 204, 68, 0.5);
+    }
+    .mutation-bar {
+      background: var(--red);
+      box-shadow: 0 0 6px rgba(255, 34, 34, 0.5);
+    }
+    .diag-value {
+      font-weight: bold;
+      color: var(--text);
+      min-width: 90px;
+      text-align: right;
+    }
+
+    /* ── TEHDİT SEVİYELERİ ── */
+    .threat-card {
+      border: 1px solid var(--border);
+    }
+    .threat-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 13px;
+    }
+    .threat-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      border-bottom: 1px dashed rgba(0, 255, 85, 0.15);
+      padding-bottom: 8px;
+    }
+    .threat-level {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      color: var(--green);
+      font-size: 11px;
+      border: 1px solid var(--green);
+      padding: 2px 6px;
+      background: rgba(0, 255, 85, 0.05);
+      white-space: nowrap;
+    }
+    .threat-level.warning {
+      color: var(--gold);
+      border-color: var(--gold);
+      background: rgba(255, 204, 68, 0.05);
+    }
+    .threat-level.danger {
+      color: var(--red);
+      border-color: var(--red);
+      background: rgba(255, 34, 34, 0.05);
+    }
+    .threat-row-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-top: -8px;
+      line-height: 1.4;
+    }
+
     /* Responsive scaling for smaller screens */
     @media (max-width: 900px) {
       .poster {
@@ -716,6 +848,34 @@
           </ul>
         </div>
 
+        <!-- TEŞHİS & GÖSTERGELER -->
+        <div class="card diagnostics-card">
+          <h2 class="card-title">Sığınak Kritik Parametreleri</h2>
+          <div class="diag-container">
+            <div class="diag-item">
+              <span class="diag-label">SIĞINAK GÜVENLİĞİ (SECURITY)</span>
+              <div class="progress-bar-container">
+                <div class="progress-bar security-bar" style="width: 68%;"></div>
+              </div>
+              <span class="diag-value">68% [DENGELİ]</span>
+            </div>
+            <div class="diag-item">
+              <span class="diag-label">SAKİNLERİN MORALİ (MORALE)</span>
+              <div class="progress-bar-container">
+                <div class="progress-bar morale-bar" style="width: 42%;"></div>
+              </div>
+              <span class="diag-value">42% [DÜŞÜK]</span>
+            </div>
+            <div class="diag-item">
+              <span class="diag-label">SİS MUTASYON ORANI (MUTATION)</span>
+              <div class="progress-bar-container">
+                <div class="progress-bar mutation-bar" style="width: 85%;"></div>
+              </div>
+              <span class="diag-value">85% [TEHLİKELİ]</span>
+            </div>
+          </div>
+        </div>
+
         <!-- TEKNİK DETAYLAR -->
         <div class="specs-grid">
           <div class="spec-item">
@@ -745,6 +905,25 @@
           <div class="visual-label">Sektör-7 Dış Kapı Kameraları</div>
         </div>
 
+        <!-- TEHDİT KATEGORİLERİ -->
+        <div class="card threat-card">
+          <h2 class="card-title">SİS TEHDİT KATEGORİLERİ</h2>
+          <div class="threat-list">
+            <div class="threat-row">
+              <span class="threat-level">FAZ-I</span>
+              <span class="threat-desc"><strong>Akut Solunum:</strong> Hafif paranoya, nefes darlığı, halsizlik belirtileri.</span>
+            </div>
+            <div class="threat-row">
+              <span class="threat-level warning">FAZ-II</span>
+              <span class="threat-desc"><strong>Hücresel Bozulma:</strong> Fiziksel deformasyon ve kontrol edilebilir hayvani mutasyon.</span>
+            </div>
+            <div class="threat-row">
+              <span class="threat-level danger">FAZ-III</span>
+              <span class="threat-desc"><strong>Canavarlaşma (Feral):</strong> İnsan bilincinin tamamen yitirilmesi, yırtıcı ve vahşi durum.</span>
+            </div>
+          </div>
+        </div>
+
         <!-- ANA KARAKTERLER -->
         <div class="card">
           <h2 class="card-title">Dosya Kartları: Sığınmacılar</h2>
@@ -756,6 +935,7 @@
                 <span class="char-class">ÖNEMLİ</span>
               </div>
               <p class="char-desc">Yalnız, gizemli bir çocuk. Sise karşı tuhaf bir bağışıklığı var gibi duruyor. Sığınağın geleceğinin anahtarı olabilir.</p>
+              <div class="char-stat">BAĞIŞIKLIK: %100 | GÜVENLİK RİSKİ: %0</div>
             </div>
 
             <div class="char-mini-card">
@@ -764,6 +944,7 @@
                 <span class="char-class">MUTANT?</span>
               </div>
               <p class="char-desc">Vücudu yavaş yavaş mutant bir kurda dönüşen eski bir madenci. Sığınakta barındırılması büyük tehlike arz ediyor.</p>
+              <div class="char-stat">MUTASYON SEVİYESİ: %75 | RİSK: %95</div>
             </div>
 
             <div class="char-mini-card">
@@ -772,6 +953,7 @@
                 <span class="char-class">BİLİM İNSANI</span>
               </div>
               <p class="char-desc">Salgını bitirebilecek antikoru taşıyan idealist bir doktor. Ancak komutanlığın onunla ilgili planları farklı.</p>
+              <div class="char-stat">AKIL SAĞLIĞI: %90 | KATKI: %100</div>
             </div>
 
             <div class="char-mini-card">
@@ -780,6 +962,7 @@
                 <span class="char-class">ŞÜPHELİ</span>
               </div>
               <p class="char-desc">Sığınak kurallarını sevmeyen ama dış dünyadaki gizli tesisler ve örgütler hakkında paha biçilemez bilgilere sahip.</p>
+              <div class="char-stat">ŞÜPHE SEVİYESİ: %85 | BİLGİ: %95</div>
             </div>
 
           </div>
