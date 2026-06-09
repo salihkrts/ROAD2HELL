@@ -660,6 +660,81 @@
       }
     }
 
+    /* ── DİJİTAL PARAZİT VE GLITCH EFEKTLERİ ── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background: rgba(0, 255, 85, 0.01);
+      opacity: 0;
+      z-index: 998;
+      pointer-events: none;
+      animation: screenGlitch 8s infinite;
+    }
+
+    body.theme-amber::after {
+      background: rgba(255, 183, 0, 0.01);
+    }
+
+    body.no-scanlines::after {
+      display: none;
+    }
+
+    @keyframes screenGlitch {
+      0%, 94%, 100% { opacity: 0; }
+      95% { opacity: 0.15; background: rgba(255, 34, 34, 0.08); }
+      96% { opacity: 0.05; background: rgba(0, 255, 85, 0.1); }
+      97% { opacity: 0.25; filter: hue-rotate(90deg); }
+      98% { opacity: 0.1; }
+      99% { opacity: 0.2; }
+    }
+
+    .card:hover .card-title {
+      animation: textGlitch 0.35s infinite;
+    }
+
+    @keyframes textGlitch {
+      0% {
+        text-shadow: 0.05em 0 0 rgba(255,0,0,.75), -0.05em -0.025em 0 rgba(0,255,0,.75), 0.025em 0.05em 0 rgba(0,0,255,.75);
+      }
+      14% {
+        text-shadow: 0.05em 0 0 rgba(255,0,0,.75), -0.05em -0.025em 0 rgba(0,255,0,.75), 0.025em 0.05em 0 rgba(0,0,255,.75);
+      }
+      15% {
+        text-shadow: -0.05em -0.025em 0 rgba(255,0,0,.75), 0.025em 0.025em 0 rgba(0,255,0,.75), -0.05em -0.05em 0 rgba(0,0,255,.75);
+      }
+      49% {
+        text-shadow: -0.05em -0.025em 0 rgba(255,0,0,.75), 0.025em 0.025em 0 rgba(0,255,0,.75), -0.05em -0.05em 0 rgba(0,0,255,.75);
+      }
+      50% {
+        text-shadow: 0.025em 0.05em 0 rgba(255,0,0,.75), 0.05em 0 0 rgba(0,255,0,.75), 0 -0.05em 0 rgba(0,0,255,.75);
+      }
+      99% {
+        text-shadow: 0.025em 0.05em 0 rgba(255,0,0,.75), 0.05em 0 0 rgba(0,255,0,.75), 0 -0.05em 0 rgba(0,0,255,.75);
+      }
+      100% {
+        text-shadow: -0.025em 0 0 rgba(255,0,0,.75), -0.025em -0.025em 0 rgba(0,255,0,.75), -0.025em -0.05em 0 rgba(0,0,255,.75);
+      }
+    }
+
+    /* ── TEHLİKE UYARI KARTI ── */
+    .warning-protocol-card {
+      border: 2px solid var(--red) !important;
+      background: rgba(255, 34, 34, 0.03) !important;
+      box-shadow: 0 0 15px rgba(255, 34, 34, 0.25);
+      margin-bottom: 20px;
+    }
+    .warning-blink {
+      color: var(--red);
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      animation: blinker 1.2s linear infinite;
+    }
+    @keyframes blinker {
+      50% { opacity: 0; }
+    }
+
     /* ── GÖSTERGELER VE DIAGNOSTICS ── */
     .diagnostics-card {
       border: 1px dashed var(--border);
@@ -809,13 +884,26 @@
       <!-- SOL KOLON -->
       <div class="col-left">
         
+        <!-- TEHLİKE UYARI PROTOKOLÜ -->
+        <div class="card warning-protocol-card">
+          <div class="protocol-header">
+            <span class="warning-blink">⚠ SİS ENFEKSİYON PROTOKOLÜ: MAKSİMUM ⚠</span>
+          </div>
+          <p style="font-size: 13px; color: var(--red); font-family: 'Share Tech Mono', monospace; line-height: 1.4; margin-top: 6px;">
+            [SEKTÖR-7 EMRİ]: Her sığınmacının tırnak yapısını, göz rengini ve solunum hızını kontrol edin. Semptom gösterenleri derhal karantinaya alın. Hata yapma lüksünüz yok.
+          </p>
+        </div>
+
         <!-- GENRE & SYNOPSIS -->
         <div class="card">
           <div class="badge">Metin Tabanlı Hayatta Kalma RPG</div>
           <div class="lore-text">
-            <strong>Yıl 2049.</strong> Küresel iklim çöktü, iletişim ağları sustu. Ve sonra... <strong>"Beyaz Sis"</strong> geldi. Temas edenleri delirten ve canavarlaştıran bu ölümcül sisin ortasında, insanlığın son kalesi Sektör-7'nin kapısında nöbet tutuyorsun. 
+            <strong>Yıl 2049. Küresel iklim çöktü, dünya karanlığa gömüldü.</strong> Ve sonra... <strong>"Beyaz Sis"</strong> geldi. Temas edenleri delirten ve canavara dönüştüren bu ölümcül sisin ortasında, son sığınak Sektör-7'nin kapısında nöbet tutuyorsun.
+            <p style="margin-top: 10px; font-size: 14px; line-height: 1.5; color: var(--text-dim);">
+              İçeri girmeye çalışanların hikayelerini dinle, belgelerini incele, çelişkileri yakala. Telsiz sorgulamaları yap ve ahlaki seçimler ver.
+            </p>
             <p class="lore-highlight">
-              "Bu kapıdan içeri giren herkes kurtulmaz… Ama yanlış kişiyi içeri alırsan… Kimse kurtulamaz."
+              "Kapıdan giren tek bir yanlış kişi tüm sığınağı katledebilir. Doğru karar yok, sadece sonuçlar var. Kararların seni 8 farklı sondan birine götürecek."
             </p>
           </div>
         </div>
