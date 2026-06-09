@@ -721,6 +721,41 @@
       }
     }
 
+    /* ── SURVEILLANCE CAMERA SELECTOR ── */
+    .cam-selector {
+      position: absolute;
+      top: 15px; right: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 15;
+    }
+    .cam-btn {
+      background: rgba(4, 8, 6, 0.85);
+      border: 1px solid var(--green);
+      color: var(--text-dim);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      padding: 4px 10px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: all 0.2s ease;
+      text-align: left;
+    }
+    .cam-btn.active {
+      color: #000;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      font-weight: bold;
+      border-color: var(--green);
+    }
+    .cam-btn:hover {
+      color: #000;
+      background: var(--green);
+      box-shadow: 0 0 5px var(--green);
+    }
+
     /* ── TEHLİKE UYARI KARTI ── */
     .warning-protocol-card {
       border: 2px solid var(--red) !important;
@@ -992,10 +1027,17 @@
         
         <!-- VISUAL ART BOX -->
         <div class="visual-box">
-          <img src="road_to_hell_poster_art.png" alt="Road to Hell Poster Visual Art">
+          <div class="cam-selector no-print">
+            <button class="cam-btn active" id="btn-cam-01" onclick="switchCamera('cam-01')">CAM-01: DIŞ KAPI</button>
+            <button class="cam-btn" id="btn-cam-02" onclick="switchCamera('cam-02')">CAM-02: REVİR</button>
+            <button class="cam-btn" id="btn-cam-03" onclick="switchCamera('cam-03')">CAM-03: LAB</button>
+            <button class="cam-btn" id="btn-cam-04" onclick="switchCamera('cam-04')">CAM-04: KORİDOR</button>
+            <button class="cam-btn" id="btn-cam-05" onclick="switchCamera('cam-05')">CAM-05: KARANTİNA</button>
+          </div>
+          <img src="road_to_hell_poster_art.png" alt="Road to Hell Poster Visual Art" id="cam-feed-img">
           <div class="visual-overlay"></div>
           <div class="visual-scanlines"></div>
-          <div class="visual-label">
+          <div class="visual-label" id="cam-label-text">
             <span class="status-dot"></span> SEKTÖR-7 CANLI YAYIN
           </div>
         </div>
@@ -1145,6 +1187,41 @@
         body.classList.add('no-scanlines');
         btn.innerHTML = '🖥️ CRT Efektini Aç';
       }
+    }
+
+    const camFeeds = {
+      'cam-01': {
+        src: 'road_to_hell_poster_art.png',
+        label: 'SEKTÖR-7 CANLI YAYIN'
+      },
+      'cam-02': {
+        src: 'medical_ward_feed.png',
+        label: 'REVİR // DOKTOR ARZU'
+      },
+      'cam-03': {
+        src: 'subterranean_lab_feed.png',
+        label: 'SEKTÖR-3 ALTI // LABORATUVAR'
+      },
+      'cam-04': {
+        src: 'shelter_corridor_feed.png',
+        label: 'ANA SIĞINAK KORİDORU'
+      },
+      'cam-05': {
+        src: 'bozkir_cell_feed.png',
+        label: 'KARANTİNA // BOZKIR HÜCRESİ'
+      }
+    };
+
+    function switchCamera(camId) {
+      const feed = camFeeds[camId];
+      if (!feed) return;
+      document.getElementById('cam-feed-img').src = feed.src;
+      const label = document.getElementById('cam-label-text');
+      label.innerHTML = `<span class="status-dot"></span> ${feed.label}`;
+      document.querySelectorAll('.cam-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.getElementById(`btn-${camId}`).classList.add('active');
     }
   </script>
 
